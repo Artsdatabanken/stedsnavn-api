@@ -8,7 +8,9 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/index.js"
+      "program": "${file}",
+      "program2": "${workspaceFolder}/index.js",
+      "runtimeArgs": ["--expose-gc"]
     }
   ]
 }

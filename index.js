@@ -6,19 +6,19 @@ gc();
 const heapUsed = process.memoryUsage().heapUsed;
 
 const map = {
-  A: 26,
-  B: 25,
-  C: 24,
-  D: 23,
-  E: 22,
-  F: 21,
-  G: 20,
-  H: 19,
-  I: 17,
-  J: 16,
-  K: 15,
-  L: 10,
-  M: 9,
+  A: 28,
+  B: 27,
+  C: 26,
+  D: 25,
+  E: 24,
+  F: 23,
+  G: 22,
+  H: 21,
+  I: 20,
+  J: 19,
+  K: 18,
+  L: 17,
+  M: 16,
   N: 8
 };
 function priTilZoom(pri) {
@@ -56,15 +56,21 @@ function index(data, pri) {
     }
     const z = priTilZoom(d.s);
     //console.log(z, d.navn);
-    qt.add(root, co[0], co[1], z, d.coord[1] + "_" + co[1]); //d.navn);
-    // });
+    qt.add(
+      root,
+      co[0],
+      co[1],
+      z,
+      d.navn[0] //d.coord[0] + "_" + d.coord[1] // + "_" + d.navn[0]
+    );
   });
   return root;
 }
 
-//const root = index(data);
+//const root = index(data, "C");
+const root = index(data);
 gc();
-true &&
+false &&
   Object.keys(map).forEach(pri => {
     const root = index(data, pri);
     showMetrics(root, pri);
@@ -95,6 +101,6 @@ console.log(
   (process.memoryUsage().heapUsed - heapUsed) / 1024.0 / 1024 + " MB"
 );
 
-const coords = normalize([104248, 6494064]);
-const x = qt.find(tree, coords[0], coords[1]);
-console.log(x);
+const coords = normalize([109707, 6474015]);
+const x = qt.find(root, coords[0], coords[1], 809);
+console.log("hit", x.value);

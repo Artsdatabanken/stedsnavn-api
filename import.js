@@ -10,6 +10,7 @@ ws.write("[");
 oboe(fs.createReadStream("./data/f.json", {}, "utf8"))
   .node("features.*", function(e) {
     if (e.geometry.type !== "Point") return oboe.drop;
+    if (!e.properties.langnavn) return oboe.drop;
     junkprops.forEach(key => delete e.properties[key]);
     const props = e.properties;
     Object.keys(props).forEach(k => {
