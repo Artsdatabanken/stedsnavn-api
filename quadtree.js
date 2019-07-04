@@ -1,7 +1,3 @@
-function createNode() {
-  return {};
-}
-
 function getChildKey(x, y) {
   const ns = y < 0.5 ? "n" : "s";
   const we = x < 0.5 ? "w" : "e";
@@ -10,9 +6,10 @@ function getChildKey(x, y) {
 
 function createChild(tree, x, y) {
   const key = getChildKey(x, y);
-  if (!tree[key]) tree[key] = createNode();
+  if (!tree[key]) tree[key] = {};
   return tree[key];
 }
+
 function getChild(tree, x, y) {
   const key = getChildKey(x, y);
   return tree[key];

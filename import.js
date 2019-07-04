@@ -2,12 +2,12 @@ const oboe = require("oboe");
 const fs = require("fs");
 
 const keys = {};
-const acc = {};
+const typer = {};
 
 let first = true;
 const ws = fs.createWriteStream("o.json");
 ws.write("[");
-oboe(fs.createReadStream("./data/4326.geojson", {}, "utf8"))
+oboe(fs.createReadStream("./data/4326.geojson", { encoding: "utf8" }))
   .node("features.*", function(e) {
     if (e.geometry.type !== "Point") return oboe.drop;
     if (!e.properties.langnavn) return oboe.drop;
@@ -31,8 +31,7 @@ oboe(fs.createReadStream("./data/4326.geojson", {}, "utf8"))
       props.navneobjektgruppe +
       "_" +
       props.navneobjekttype;
-    if (!acc[props.l]) acc[props.l] = {};
-    acc[props.l][props.s] = (acc[props.l][props.s] || 0) + 1;
+    if (!typer[props.l]) typer[props.l] = true;
     delete props.navneobjekthovedgruppe;
     delete props.navneobjektgruppe;
     delete props.navneobjekttype;
@@ -57,7 +56,10 @@ oboe(fs.createReadStream("./data/4326.geojson", {}, "utf8"))
   .done(() => {
     ws.write("]");
     ws.close();
-    console.log(JSON.stringify(acc));
+    fs.writeFileSync(
+      "typer.json",
+      JSON.stringify(Array.sort(Object.keys(typer)))
+    );
   });
 
 const junkprops = [

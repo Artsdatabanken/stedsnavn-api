@@ -24,14 +24,14 @@ const map = {
 };
 function priTilZoom(pri) {
   if (!map[pri]) throw new Error(pri);
-  return map[pri] - 6;
+  return map[pri];
 }
 
 const bounds = geometry.getExtents(data);
 
 let oob = 0;
 function index(data, pri) {
-  const root = qt.createNode();
+  const tree = {};
   data.forEach(d => {
     if (pri && d.s !== pri) return;
     //d.navn.forEach(navn => {
@@ -44,14 +44,14 @@ function index(data, pri) {
     const z = priTilZoom(d.s);
     //console.log(z, d.navn);
     qt.add(
-      root,
+      tree,
       co[0],
       co[1],
       z,
       d.navn[0] //d.coord[0] + "_" + d.coord[1] // + "_" + d.navn[0]
     );
   });
-  return root;
+  return tree;
 }
 
 //const root = index(data, "C");
