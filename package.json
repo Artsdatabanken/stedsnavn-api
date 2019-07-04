@@ -8,9 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "oboe": "^2.1.4",
-    "stream-json": "^1.3.0"
-  }
+  "license": "MIT"
 }
