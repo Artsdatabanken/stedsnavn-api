@@ -35,7 +35,7 @@ function add(tree, x, y, z, value) {
   tree = create(tree, x, y, z);
   if (tree.value) {
     if (value !== tree.value) {
-      collisions++;
+      //collisions++;
     }
     tree.value = value;
     max = Math.max(max, tree.value.length);
