@@ -8,9 +8,9 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${file}",
-      "program2": "${workspaceFolder}/index.js",
-      "runtimeArgs": ["--expose-gc"]
+      "program": "${workspaceFolder}/stedsnavn-api.js",
+      "runtimeArgs": ["--expose-gc"],
+      "args": ["--port", "8005", "data/"]
     }
   ]
 }
