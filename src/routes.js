@@ -10,6 +10,7 @@ module.exports = function(app, index) {
     const coords = geometry.normalize([lon, lat], index.bounds);
 
     const r = quadtree.find(index, coords[0], coords[1], zoom);
+    res.setHeader("Content-Type", "application/json");
     res.send(JSON.stringify(r));
   });
 };
