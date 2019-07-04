@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`quadtile add 1`] = `
+Object {
+  "nw": Object {
+    "se": Object {
+      "value": "C",
+    },
+    "value": "B",
+  },
+  "value": "A",
+}
+`;

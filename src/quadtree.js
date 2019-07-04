@@ -51,4 +51,4 @@ function add(tree, x, y, z, value) {
   } else tree.value = value;
 }
 
-module.exports = { createNode, add, find };
+module.exports = { add, find };
