@@ -22,9 +22,9 @@ let collisions = 0;
 let max = 0;
 
 function find(tree, x, y, z) {
-  if (z === 0) return tree;
+  if (z === 0) return { [z]: tree.value };
   const leaf = getChild(tree, x, y);
-  if (!leaf) return tree;
+  if (!leaf) return { [z]: tree.value };
   const dv = find(leaf, 2 * (x % 0.5), 2 * (y % 0.5), z - 1);
   return Object.assign({}, dv, { [z]: tree.value });
   //  return dv.value ? dv : tree;

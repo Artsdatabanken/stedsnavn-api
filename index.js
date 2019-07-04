@@ -1,5 +1,6 @@
 const fs = require("fs");
 const qt = require("./quadtree");
+const geometry = require("./geometry");
 
 const data = JSON.parse(fs.readFileSync("o.json"));
 gc();
@@ -23,24 +24,10 @@ const map = {
 };
 function priTilZoom(pri) {
   if (!map[pri]) throw new Error(pri);
-  return map[pri];
+  return map[pri] - 6;
 }
 
-const bounds = {
-  left: -2500000.0,
-  bottom: 3500000.0,
-  right: 3045984.0,
-  top: 9045984.0
-};
-bounds.width = bounds.right - bounds.left;
-bounds.height = bounds.top - bounds.bottom;
-
-function normalize(coord) {
-  return [
-    (coord[0] - bounds.left) / bounds.width,
-    (coord[1] - bounds.bottom) / bounds.height
-  ];
-}
+const bounds = geometry.getExtents(data);
 
 let oob = 0;
 function index(data, pri) {
@@ -48,7 +35,7 @@ function index(data, pri) {
   data.forEach(d => {
     if (pri && d.s !== pri) return;
     //d.navn.forEach(navn => {
-    const co = normalize(d.coord);
+    const co = geometry.normalize(d.coord, bounds);
     if (co[0] < 0 || co[0] > 1 || co[1] < 0 || co[1] > 1) {
       oob++;
       //    throw new Error(JSON.stringify(d));
@@ -102,6 +89,11 @@ console.log(
 );
 
 //const coords = normalize([109707, 6474015]);
-const coords = normalize([6.123769447236364, 58.38904167024711]);
+const coords = geometry.normalize(
+  //  [6.123769447236364, 58.38904167024711],
+  [8.001252772583749, 58.14704999571571],
+  bounds
+);
 const x = qt.find(root, coords[0], coords[1], 809);
+debugger;
 console.log("hit", x.value);
