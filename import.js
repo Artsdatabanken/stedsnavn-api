@@ -4,9 +4,7 @@ const fs = require("fs");
 const keys = {};
 const typer = {};
 
-let first = true;
 const ws = fs.createWriteStream("o.json");
-ws.write("[");
 oboe(fs.createReadStream("./data/4326.geojson", { encoding: "utf8" }))
   .node("features.*", function(e) {
     if (e.geometry.type !== "Point") return oboe.drop;
@@ -46,20 +44,13 @@ oboe(fs.createReadStream("./data/4326.geojson", { encoding: "utf8" }))
     if (props.coord[0] == -50210 && props.coord[1] == 6772591) return oboe.drop; // Feilplassert
     if (props.coord[0] == -40879 && props.coord[1] == 6650995) return oboe.drop; // Feilplassert
 
-    if (first) {
-      first = false;
-    } else ws.write(",");
     //    if (props.språk[0] !== "nor") console.log(props);
     ws.write(JSON.stringify(props) + "\n");
     return oboe.drop;
   })
   .done(() => {
-    ws.write("]");
     ws.close();
-    fs.writeFileSync(
-      "typer.json",
-      JSON.stringify(Array.sort(Object.keys(typer)))
-    );
+    fs.writeFileSync("typer.json", JSON.stringify(typer));
   });
 
 const junkprops = [
