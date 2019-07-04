@@ -101,6 +101,7 @@ console.log(
   (process.memoryUsage().heapUsed - heapUsed) / 1024.0 / 1024 + " MB"
 );
 
-const coords = normalize([109707, 6474015]);
+//const coords = normalize([109707, 6474015]);
+const coords = normalize([6.123769447236364, 58.38904167024711]);
 const x = qt.find(root, coords[0], coords[1], 809);
 console.log("hit", x.value);

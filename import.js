@@ -7,7 +7,7 @@ const acc = {};
 let first = true;
 const ws = fs.createWriteStream("o.json");
 ws.write("[");
-oboe(fs.createReadStream("./data/f.json", {}, "utf8"))
+oboe(fs.createReadStream("./data/4326.geojson", {}, "utf8"))
   .node("features.*", function(e) {
     if (e.geometry.type !== "Point") return oboe.drop;
     if (!e.properties.langnavn) return oboe.drop;
@@ -38,7 +38,8 @@ oboe(fs.createReadStream("./data/f.json", {}, "utf8"))
     delete props.navneobjekttype;
     props.navn = props.langnavn;
     delete props.langnavn;
-    props.coord = e.geometry.coordinates.map(x => Math.round(x));
+    //    props.coord = e.geometry.coordinates.map(x => Math.round(x));
+    props.coord = e.geometry.coordinates;
     if (props.coord[0] == 229378 && props.coord[1] == 6950049) return oboe.drop; // Feilplassert
     if (props.coord[0] == 107355 && props.coord[1] == 7008055) return oboe.drop; // Feilplassert
     if (props.coord[0] == 66042 && props.coord[1] == 6946751) return oboe.drop; // Feilplassert
