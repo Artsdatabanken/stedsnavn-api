@@ -6,13 +6,14 @@
   "scripts": {
     "start": "node stedsnavn-api.js --port 8000 data/",
     "debug": "nodemon -r esm --inspect-brk --inspect=0.0.0.0:9229 stedsnavn-api.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "husky": "^3.0.0",
+    "jest": "^24.8.0",
     "log-less-fancy": "^1.4.0",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
@@ -20,6 +21,15 @@
   },
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": [
+      "lcov"
+    ]
   },
   "husky": {
     "hooks": {
