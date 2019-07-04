@@ -26,7 +26,8 @@ function find(tree, x, y, z) {
   const leaf = getChild(tree, x, y);
   if (!leaf) return tree;
   const dv = find(leaf, 2 * (x % 0.5), 2 * (y % 0.5), z - 1);
-  return dv.value ? dv : tree;
+  return Object.assign({}, dv, { [z]: tree.value });
+  //  return dv.value ? dv : tree;
 }
 
 function create(tree, x, y, z) {
