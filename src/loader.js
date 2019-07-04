@@ -23,10 +23,9 @@ function priTilZoom(pri) {
   return map[pri];
 }
 
-const bounds = geometry.getExtents([]);
-
 function index(stederPath, pri) {
   const tree = {};
+  tree.bounds = geometry.getExtents([]);
 
   var lineReader = require("readline").createInterface({
     input: require("fs").createReadStream(stederPath)
@@ -39,13 +38,12 @@ function index(stederPath, pri) {
     const navn = fields[3];
     const x = parseFloat(fields[1]);
     const y = parseFloat(fields[2]);
-    const co = geometry.normalize([x, y], bounds);
+    const co = geometry.normalize([x, y], tree.bounds);
     if (co[0] < 0 || co[0] > 1 || co[1] < 0 || co[1] > 1) return;
 
     const z = priTilZoom(priority);
     qt.add(tree, co[0], co[1], z, navn);
   });
-
   return tree;
 }
 
