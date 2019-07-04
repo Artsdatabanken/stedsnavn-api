@@ -1,4 +1,4 @@
-const fs = require("fs");
+const path = require("path");
 const qt = require("./quadtree");
 const geometry = require("./geometry");
 
@@ -23,26 +23,35 @@ function priTilZoom(pri) {
   return map[pri];
 }
 
-const bounds = geometry.getExtents(data);
+const bounds = geometry.getExtents([]);
 
-function index(data, pri) {
+function index(stederPath, pri) {
   const tree = {};
-  data.forEach(d => {
-    if (pri && d.s !== pri) return;
-    const co = geometry.normalize(d.coord, bounds);
-    if (co[0] < 0 || co[0] > 1 || co[1] < 0 || co[1] > 1) {
-      return;
-    }
-    const z = priTilZoom(d.s);
-    qt.add(tree, co[0], co[1], z, d.navn[0]);
+
+  var lineReader = require("readline").createInterface({
+    input: require("fs").createReadStream(stederPath)
   });
+
+  lineReader.on("line", function(line) {
+    const fields = line.split(" ", 5);
+    const priority = fields[0][0];
+    const categoryId = fields[0].substring(1);
+    const navn = fields[3];
+    const x = parseFloat(fields[1]);
+    const y = parseFloat(fields[2]);
+    const co = geometry.normalize([x, y], bounds);
+    if (co[0] < 0 || co[0] > 1 || co[1] < 0 || co[1] > 1) return;
+
+    const z = priTilZoom(priority);
+    qt.add(tree, co[0], co[1], z, navn);
+  });
+
   return tree;
 }
 
 function load(directory) {
-  const steder = path.join(directory, "steder.json");
-  const data = JSON.parse(fs.readFileSync(directory));
-  return index(data);
+  const fullpath = path.join(directory, "steder.json");
+  return index(fullpath);
 }
 
 module.exports = { load };
