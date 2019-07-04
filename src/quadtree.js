@@ -15,7 +15,6 @@ function getChild(tree, x, y) {
   return tree[key];
 }
 
-let collisions = 0;
 let max = 0;
 
 function find(tree, x, y, z) {
@@ -24,7 +23,6 @@ function find(tree, x, y, z) {
   if (!leaf) return { [z]: tree.value };
   const dv = find(leaf, 2 * (x % 0.5), 2 * (y % 0.5), z - 1);
   return Object.assign({}, dv, { [z]: tree.value });
-  //  return dv.value ? dv : tree;
 }
 
 function create(tree, x, y, z) {
@@ -36,18 +34,11 @@ function create(tree, x, y, z) {
 function add(tree, x, y, z, value) {
   tree = create(tree, x, y, z);
   if (tree.value) {
-    //    tree.value.push(value);
     if (value !== tree.value) {
       collisions++;
-      //      console.log(collisions);
     }
     tree.value = value;
-    //    if (tree.value.length > max) console.log(tree.value);
     max = Math.max(max, tree.value.length);
-    //    console.log("x", tree.value);
-    //if (collisions % 100 === 1)
-    // throw new Error("Collision: " + tree.value + "<->" + value);
-    //  } else tree.value = [value];
   } else tree.value = value;
 }
 
