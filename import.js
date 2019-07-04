@@ -1,8 +1,13 @@
 const oboe = require("oboe");
 const fs = require("fs");
-
+const category = require("./category");
 const keys = {};
-const typer = {};
+const typer = category.create();
+
+function round_to_precision(x, precision) {
+  const scaler = Math.pow(10, precision);
+  return Math.round(x * scaler) / scaler;
+}
 
 const ws = fs.createWriteStream("o.json");
 oboe(fs.createReadStream("./data/4326.geojson", { encoding: "utf8" }))
@@ -29,6 +34,7 @@ oboe(fs.createReadStream("./data/4326.geojson", { encoding: "utf8" }))
       props.navneobjektgruppe +
       "_" +
       props.navneobjekttype;
+    const category = typer.add(props.l);
     if (!typer[props.l]) typer[props.l] = true;
     delete props.navneobjekthovedgruppe;
     delete props.navneobjektgruppe;
@@ -45,7 +51,12 @@ oboe(fs.createReadStream("./data/4326.geojson", { encoding: "utf8" }))
     if (props.coord[0] == -40879 && props.coord[1] == 6650995) return oboe.drop; // Feilplassert
 
     //    if (props.språk[0] !== "nor") console.log(props);
-    ws.write(JSON.stringify(props) + "\n");
+    const x = `${props.s} ${category} ${round_to_precision(
+      props.coord[0],
+      6
+    )}  ${round_to_precision(props.coord[1], 6)}  ${props.navn[0]}`;
+
+    ws.write(x + "\n");
     return oboe.drop;
   })
   .done(() => {
