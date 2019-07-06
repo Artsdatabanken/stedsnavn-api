@@ -32,10 +32,10 @@ function index(stederPath, pri) {
   });
 
   lineReader.on("line", function(line) {
-    const fields = line.split(" ", 5);
+    const fields = line.split(" ");
     const priority = fields[0][0];
     const categoryId = fields[0].substring(1);
-    const navn = fields[3];
+    const navn = fields.slice(3).join(" ");
     const x = parseFloat(fields[1]);
     const y = parseFloat(fields[2]);
     const co = geometry.normalize([x, y], tree.bounds);
