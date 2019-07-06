@@ -11,3 +11,33 @@ Object {
   "value": "A",
 }
 `;
+
+exports[`quadtile find 1`] = `
+Object {
+  "dist": 0.5,
+  "distSquared": 1,
+  "value": "B",
+}
+`;
+
+exports[`quadtile find multi 1`] = `
+Object {
+  "dist": 94868.32980505138,
+  "distSquared": 9000000000,
+}
+`;
+
+exports[`quadtile find out of range 1`] = `
+Object {
+  "dist": 47434.16490252569,
+  "distSquared": 9000000000,
+}
+`;
+
+exports[`quadtile find root 1`] = `
+Object {
+  "dist": 0.3535533905932738,
+  "distSquared": 0.125,
+  "value": "A",
+}
+`;
