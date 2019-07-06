@@ -11,6 +11,17 @@
       "program": "${workspaceFolder}/stedsnavn-api.js",
       "runtimeArgs": ["--expose-gc"],
       "args": ["--port", "9060", "data/"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Tests",
+      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+      "args": ["-i"],
+      "_preLaunchTask": "build",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outFiles": ["${workspaceRoot}/dist/**/*"],
+      "_envFile": "${workspaceRoot}/.env"
     }
   ]
 }
