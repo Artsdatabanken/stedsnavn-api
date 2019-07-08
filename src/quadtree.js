@@ -33,25 +33,23 @@ function distanceFromQuadSquared(px, py) {
   dy = Math.max(Math.abs(py - y) - height / 2, 0);
   return dx * dx + dy * dy;
 }
+function addCandidate(prio, tile, x, y, dx, dy) {
+  if (!tile) return;
+  prio.push({
+    t: tile,
+    x: x - dx,
+    y: y - dy,
+    d: 0
+  });
+}
 
 function getCandidates(quad, x, y) {
-  const prio = [
-    { t: quad.nw, x: x, y: y, d: 0.0 },
-    { t: quad.ne, x: x - 0.5, y: y, d: 0.0 },
-    {
-      t: quad.sw,
-      x: x,
-      y: y - 0.5,
-      d: 0.0
-    },
-    {
-      t: quad.se,
-      x: x - 0.5,
-      y: y - 0.5,
-      d: 0.0
-    }
-  ];
-  for (let i = 0; i < 4; i++)
+  const prio = [];
+  addCandidate(prio, quad.nw, x, y, 0, 0);
+  addCandidate(prio, quad.ne, x, y, 0.5, 0);
+  addCandidate(prio, quad.sw, x, y, 0, 0.5);
+  addCandidate(prio, quad.se, x, y, 0.5, 0.5);
+  for (let i = 0; i < prio.length; i++)
     prio[i].d = distanceFromQuadSquared(prio[i].x, prio[i].y);
   prio.sort((a, b) => (a.d > b.d ? 1 : -1));
   return prio;
@@ -63,7 +61,7 @@ function find2_(quad, best, x, y, radius, z) {
     return;
   if (z > 0) {
     const prio = getCandidates(quad, x, y);
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < prio.length; i++) {
       const tile = prio[i];
       if (!tile.t) continue;
       find2_(tile.t, best, 2 * tile.x, 2 * tile.y, 2 * radius, z - 1);
