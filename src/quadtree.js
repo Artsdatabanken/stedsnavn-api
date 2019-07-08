@@ -18,7 +18,7 @@ function getChild(tree, x, y) {
 let max = 0;
 
 function find2(quad, x, y, radius, z) {
-  const best = { distSquared: 9e9 };
+  const best = { distSquared: 9e19 };
   find2_(quad, best, x, y, radius, z);
   best.dist = Math.sqrt(best.distSquared) * Math.pow(0.5, z);
   return best;
@@ -35,27 +35,39 @@ function distanceFromQuadSquared(px, py) {
 }
 
 function find2_(quad, best, x, y, radius, z) {
-  if (!quad) return;
-  false &&
-    console.log(
-      quad.value,
-      x,
-      y,
-      radius,
-      distanceFromQuadSquared(x, y),
-      radius * radius
-    );
-  if (distanceFromQuadSquared(x, y) > radius * radius) return;
+  if (distanceFromQuadSquared(x, y) > radius * radius)
+    //    Math.min(radius * radius, Math.pow(2, z) * best.distSquared))
+    return;
   if (z > 0) {
-    find2_(quad.nw, best, 2 * x, 2 * y, 2 * radius, z - 1);
-    find2_(quad.ne, best, 2 * (x - 0.5), 2 * y, 2 * radius, z - 1);
-    find2_(quad.sw, best, 2 * x, 2 * (y - 0.5), 2 * radius, z - 1);
-    find2_(quad.se, best, 2 * (x - 0.5), 2 * (y - 0.5), 2 * radius, z - 1);
+    const prio = [
+      { t: quad.nw, x: x, y: y, d: 0.0 },
+      { t: quad.ne, x: x - 0.5, y: y, d: 0.0 },
+      {
+        t: quad.sw,
+        x: x,
+        y: y - 0.5,
+        d: 0.0
+      },
+      {
+        t: quad.se,
+        x: x - 0.5,
+        y: y - 0.5,
+        d: 0.0
+      }
+    ];
+    for (let i = 0; i < 4; i++)
+      prio[i].d = distanceFromQuadSquared(prio[i].x, prio[i].y);
+    prio.sort((a, b) => (a.d > b.d ? 1 : -1));
+    for (let i = 0; i < 4; i++) {
+      const tile = prio[i];
+      if (!tile.t) continue;
+      find2_(tile.t, best, 2 * tile.x, 2 * tile.y, 2 * radius, z - 1);
+    }
     return;
   }
   if (!quad.value) return;
   const distSquared = (x - 0.5) * (x - 0.5) + (y - 0.5) * (y - 0.5);
-  console.log(quad.value + ": " + Math.sqrt(distSquared));
+  //  console.log(quad.value + ": " + Math.sqrt(distSquared));
   if (distSquared < best.distSquared) {
     best.distSquared = distSquared;
     best.value = quad.value;

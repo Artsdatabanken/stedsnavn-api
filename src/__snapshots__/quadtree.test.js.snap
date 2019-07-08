@@ -22,15 +22,16 @@ Object {
 
 exports[`quadtile find multi 1`] = `
 Object {
-  "dist": 94868.32980505138,
-  "distSquared": 9000000000,
+  "dist": 0.3858108344772085,
+  "distSquared": 2.3815999999999997,
+  "value": "D",
 }
 `;
 
 exports[`quadtile find out of range 1`] = `
 Object {
-  "dist": 47434.16490252569,
-  "distSquared": 9000000000,
+  "dist": 4743416490.252569,
+  "distSquared": 90000000000000000000,
 }
 `;
 

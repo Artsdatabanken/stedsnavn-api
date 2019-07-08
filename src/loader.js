@@ -18,6 +18,7 @@ const map = {
   M: 16,
   N: 8
 };
+
 function priTilZoom(pri) {
   if (!map[pri]) throw new Error(pri);
   return map[pri];
