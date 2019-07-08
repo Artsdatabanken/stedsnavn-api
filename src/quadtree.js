@@ -34,30 +34,35 @@ function distanceFromQuadSquared(px, py) {
   return dx * dx + dy * dy;
 }
 
+function getCandidates(quad, x, y) {
+  const prio = [
+    { t: quad.nw, x: x, y: y, d: 0.0 },
+    { t: quad.ne, x: x - 0.5, y: y, d: 0.0 },
+    {
+      t: quad.sw,
+      x: x,
+      y: y - 0.5,
+      d: 0.0
+    },
+    {
+      t: quad.se,
+      x: x - 0.5,
+      y: y - 0.5,
+      d: 0.0
+    }
+  ];
+  for (let i = 0; i < 4; i++)
+    prio[i].d = distanceFromQuadSquared(prio[i].x, prio[i].y);
+  prio.sort((a, b) => (a.d > b.d ? 1 : -1));
+  return prio;
+}
+
 function find2_(quad, best, x, y, radius, z) {
   if (distanceFromQuadSquared(x, y) > radius * radius)
     //    Math.min(radius * radius, Math.pow(2, z) * best.distSquared))
     return;
   if (z > 0) {
-    const prio = [
-      { t: quad.nw, x: x, y: y, d: 0.0 },
-      { t: quad.ne, x: x - 0.5, y: y, d: 0.0 },
-      {
-        t: quad.sw,
-        x: x,
-        y: y - 0.5,
-        d: 0.0
-      },
-      {
-        t: quad.se,
-        x: x - 0.5,
-        y: y - 0.5,
-        d: 0.0
-      }
-    ];
-    for (let i = 0; i < 4; i++)
-      prio[i].d = distanceFromQuadSquared(prio[i].x, prio[i].y);
-    prio.sort((a, b) => (a.d > b.d ? 1 : -1));
+    const prio = getCandidates(quad, x, y);
     for (let i = 0; i < 4; i++) {
       const tile = prio[i];
       if (!tile.t) continue;
