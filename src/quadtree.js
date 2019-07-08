@@ -56,9 +56,7 @@ function getCandidates(quad, x, y) {
 }
 
 function find2_(quad, best, x, y, radius, z) {
-  if (distanceFromQuadSquared(x, y) > radius * radius)
-    //    Math.min(radius * radius, Math.pow(2, z) * best.distSquared))
-    return;
+  if (distanceFromQuadSquared(x, y) > Math.pow(2, z) * best.distSquared) return;
   if (z > 0) {
     const prio = getCandidates(quad, x, y);
     for (let i = 0; i < prio.length; i++) {
