@@ -56,12 +56,12 @@ function getCandidates(quad, x, y) {
 }
 
 function find2_(quad, best, x, y, radius, z) {
-  if (distanceFromQuadSquared(x, y) > Math.pow(2, z) * best.distSquared) return;
+  if (distanceFromQuadSquared(x, y) > Math.pow(0.5, z) * best.distSquared)
+    return;
   if (z > 0) {
     const prio = getCandidates(quad, x, y);
     for (let i = 0; i < prio.length; i++) {
       const tile = prio[i];
-      if (!tile.t) continue;
       find2_(tile.t, best, 2 * tile.x, 2 * tile.y, 2 * radius, z - 1);
     }
     return;
