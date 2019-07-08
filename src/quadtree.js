@@ -19,7 +19,7 @@ let max = 0;
 
 function find2(quad, x, y, radius, z) {
   const best = { distSquared: 9e19 };
-  find2_(quad, best, x, y, radius, z);
+  find2_(quad, best, x, y, z);
   best.dist = Math.sqrt(best.distSquared) * Math.pow(0.5, z);
   return best;
 }
@@ -55,14 +55,14 @@ function getCandidates(quad, x, y) {
   return prio;
 }
 
-function find2_(quad, best, x, y, radius, z) {
+function find2_(quad, best, x, y, z) {
   if (distanceFromQuadSquared(x, y) > Math.pow(0.5, z) * best.distSquared)
     return;
   if (z > 0) {
     const prio = getCandidates(quad, x, y);
     for (let i = 0; i < prio.length; i++) {
       const tile = prio[i];
-      find2_(tile.t, best, 2 * tile.x, 2 * tile.y, 2 * radius, z - 1);
+      find2_(tile.t, best, 2 * tile.x, 2 * tile.y, z - 1);
     }
     return;
   }
