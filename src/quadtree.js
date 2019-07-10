@@ -33,6 +33,7 @@ function distanceFromQuadSquared(px, py) {
   dy = Math.max(Math.abs(py - y) - height / 2, 0);
   return dx * dx + dy * dy;
 }
+
 function addCandidate(prio, tile, x, y, dx, dy) {
   if (!tile) return;
   prio.push({
