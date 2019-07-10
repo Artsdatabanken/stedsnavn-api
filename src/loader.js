@@ -24,7 +24,7 @@ function priTilZoom(pri) {
   return map[pri];
 }
 
-function index(stederPath, pri) {
+function index(stederPath) {
   const tree = {};
   tree.bounds = geometry.getExtents([]);
 
