@@ -3,7 +3,6 @@ language: node_js
 node_js:
   - "10"
 before_install:
-  - yarn global add greenkeeper-lockfile@1
   - export PATH=$PATH:`yarn global bin`
   - docker build --tag artsdatabanken/stedsnavn-api .
   - docker image ls	-a
@@ -28,8 +27,6 @@ notifications:
   on_success: change
   on_failure: change
   on_pull_requests: false
-before_script: greenkeeper-lockfile-update
-after_script: greenkeeper-lockfile-upload
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
