@@ -27,6 +27,7 @@ function priTilZoom(pri) {
 function index(stederPath) {
   const tree = {};
   tree.bounds = geometry.getExtents([]);
+  tree.types = typer;
 
   var lineReader = require("readline").createInterface({
     input: require("fs").createReadStream(stederPath)
@@ -43,7 +44,7 @@ function index(stederPath) {
     if (co[0] < 0 || co[0] > 1 || co[1] < 0 || co[1] > 1) return;
 
     const z = priTilZoom(priority);
-    qt.add(tree, co[0], co[1], z, navn);
+    qt.add(tree, co[0], co[1], z, categoryId + ";" + navn);
   });
   return tree;
 }

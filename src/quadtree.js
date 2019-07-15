@@ -21,6 +21,7 @@ function find2(quad, x, y, z) {
   const best = { distSquared: 9e19 };
   find2_(quad, best, x, y, z);
   best.dist = Math.sqrt(best.distSquared) * Math.pow(0.5, z);
+  delete best.distSquared;
   return best;
 }
 

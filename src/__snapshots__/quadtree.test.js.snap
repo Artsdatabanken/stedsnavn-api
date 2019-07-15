@@ -14,31 +14,27 @@ Object {
 
 exports[`quadtile find 1`] = `
 Object {
-  "dist": 0.5,
-  "distSquared": 1,
+  "dist": 0.8408964152537146,
   "value": "B",
 }
 `;
 
 exports[`quadtile find multi 1`] = `
 Object {
-  "dist": 0.3858108344772085,
-  "distSquared": 2.3815999999999997,
-  "value": "D",
+  "dist": 6708203932.49937,
 }
 `;
 
 exports[`quadtile find out of range 1`] = `
 Object {
-  "dist": 4743416490.252569,
-  "distSquared": 90000000000000000000,
+  "dist": 0.8467453123625271,
+  "value": "B",
 }
 `;
 
 exports[`quadtile find root 1`] = `
 Object {
-  "dist": 0.3535533905932738,
-  "distSquared": 0.125,
-  "value": "A",
+  "dist": 0.8467453123625271,
+  "value": "B",
 }
 `;
