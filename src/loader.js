@@ -27,7 +27,7 @@ function priTilZoom(pri) {
 function index(stederPath) {
   const tree = {};
   tree.bounds = geometry.getExtents([]);
-  tree.types = typer;
+  //  tree.types = typer;
 
   var lineReader = require("readline").createInterface({
     input: require("fs").createReadStream(stederPath)
