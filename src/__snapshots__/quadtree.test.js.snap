@@ -12,13 +12,6 @@ Object {
 }
 `;
 
-exports[`quadtile find 1`] = `
-Object {
-  "dist": 0.8408964152537146,
-  "value": "B",
-}
-`;
-
 exports[`quadtile find multi 1`] = `
 Object {
   "dist": 6708203932.49937,
