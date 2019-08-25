@@ -37,14 +37,13 @@ function index(stederPath) {
     const fields = line.split(" ");
     const priority = fields[0][0];
     const categoryId = fields[0].substring(1);
-    const navn = fields.slice(3).join(" ");
+    const navn = fields.slice(4).join(" ");
     const x = parseFloat(fields[1]);
     const y = parseFloat(fields[2]);
     const co = geometry.normalize([x, y], tree.bounds);
     if (co[0] < 0 || co[0] > 1 || co[1] < 0 || co[1] > 1) return;
 
     const z = priTilZoom(priority);
-    if (navn === "Treungen") debugger;
     qt.add(tree, co[0], co[1], z, categoryId + ";" + navn);
   });
   return tree;

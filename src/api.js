@@ -8,7 +8,7 @@ function lookup(index, lon, lat, zoom) {
     const fields = hit.value.split(";");
     const [category, name] = fields;
     const meta = index.id2meta[category];
-    return { navn: name, meta: meta };
+    return { navn: name, dist: hit.dist, meta: meta };
   }
   return hit;
 }
