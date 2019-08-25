@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const qt = require("./quadtree");
 const geometry = require("./geometry");
 
@@ -27,7 +28,6 @@ function priTilZoom(pri) {
 function index(stederPath) {
   const tree = {};
   tree.bounds = geometry.getExtents([]);
-  //  tree.types = typer;
 
   var lineReader = require("readline").createInterface({
     input: require("fs").createReadStream(stederPath)
@@ -44,14 +44,26 @@ function index(stederPath) {
     if (co[0] < 0 || co[0] > 1 || co[1] < 0 || co[1] > 1) return;
 
     const z = priTilZoom(priority);
+    if (navn === "Treungen") debugger;
     qt.add(tree, co[0], co[1], z, categoryId + ";" + navn);
   });
   return tree;
 }
 
 function load(directory) {
+  const id2kode = JSON.parse(
+    fs.readFileSync(path.join(directory, "id2kode.json"))
+  );
+  const meta = JSON.parse(
+    fs.readFileSync(path.join(directory, "metabase.json"))
+  );
+  Object.keys(id2kode).forEach(id => {
+    const kode = id2kode[id];
+    id2kode[id] = meta[kode];
+  });
   const fullpath = path.join(directory, "steder.json");
-  return index(fullpath);
+  const r = index(fullpath);
+  return { index: r, id2meta: id2kode };
 }
 
 module.exports = { load };

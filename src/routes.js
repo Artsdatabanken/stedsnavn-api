@@ -11,10 +11,4 @@ module.exports = function(app, index) {
     res.setHeader("Content-Type", "application/json");
     res.send(JSON.stringify(r));
   });
-  app.get("/:lon,:lat/:zoom?", (req, res) => {
-    const { lat, lon, zoom } = req.params;
-    const r = api.lookup(index, lon, lat, zoom);
-    res.setHeader("Content-Type", "application/json");
-    res.send(JSON.stringify(r));
-  });
 };
