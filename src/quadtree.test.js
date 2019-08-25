@@ -15,8 +15,8 @@ test("quadtile find", async () => {
 
   qt.add(root, 0, 0, 0, "A");
   qt.add(root, 0.75, 0.75, 1, "B");
-  const actual = qt.find2(root, 0.25, 0.75, 0.25, 1);
-  expect(actual.dist).toBeCloseTo(0.8408964152537145);
+  const actual = qt.find2(root, 0.55, 0.75, 1);
+  expect(actual.dist).toBeCloseTo(0.19999999999999996);
   expect(actual.value).toBe("B");
 });
 
