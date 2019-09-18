@@ -50,19 +50,18 @@ function index(stederPath) {
 }
 
 function load(directory) {
-  const id2kode = JSON.parse(
-    fs.readFileSync(path.join(directory, "id2kode.json"))
+  const steder_kategori = JSON.parse(
+    fs.readFileSync(path.join(directory, "steder_kategori.json"))
   );
   const meta = JSON.parse(
     fs.readFileSync(path.join(directory, "metabase.json"))
   );
-  Object.keys(id2kode).forEach(id => {
-    const kode = id2kode[id];
-    id2kode[id] = meta[kode];
+  steder_kategori.forEach(sk => {
+    steder_kategori[sk.id] = meta[sk.kode];
   });
   const fullpath = path.join(directory, "steder.json");
   const r = index(fullpath);
-  return { index: r, id2meta: id2kode };
+  return { index: r, id2meta: steder_kategori };
 }
 
 module.exports = { load };
