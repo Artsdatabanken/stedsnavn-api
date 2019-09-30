@@ -56,7 +56,7 @@ function load(directory) {
   const meta = JSON.parse(
     fs.readFileSync(path.join(directory, "metabase.json"))
   );
-  steder_kategori.forEach(sk => {
+  steder_kategori.items.forEach(sk => {
     steder_kategori[sk.id] = meta[sk.kode];
   });
   const fullpath = path.join(directory, "steder.json");
