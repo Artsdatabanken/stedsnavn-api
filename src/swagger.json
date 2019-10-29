@@ -1,0 +1,64 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Slå opp stedsnavn basert på koordinater og zoom nivå.\n[https://stedsnavn.artsdatabanken.no/](https://stedsnavn.artsdatabanken.no/) or on \n[https://artsdatabanken.slack.com/, #åpnedata](https://artsdatabanken.slack.com/).\n",
+    "version": "1.0.0",
+    "title": "Stedsnavn API",
+    "contact": {
+      "email": "bjorn.reppen@artsdatabanken.no"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "basePath": "/v1",
+  "schemes": ["https"],
+  "paths": {
+    "/punkt": {
+      "get": {
+        "summary": "Slå opp stedsnavn fra lengde- og breddegrad",
+        "description": "",
+        "operationId": "getStedsnavn",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "description": "Lengdegrad i WGS-84 desimalgrader",
+            "required": true,
+            "default": 10.5,
+            "type": "number"
+          },
+          {
+            "name": "lon",
+            "in": "query",
+            "description": "Breddegrad i WGS-84 desimalgrader",
+            "required": true,
+            "default": 63,
+            "type": "number"
+          },
+          {
+            "name": "zoom",
+            "in": "query",
+            "description": "Zoom-nivå (0-55).  Høyere zoom-nivå gir stedsnavn med lavere 'viktighet'",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about multi-layer-map-api on GitHub",
+    "url": "https://github.com/Artsdatabanken/multi-layer-map-api"
+  }
+}

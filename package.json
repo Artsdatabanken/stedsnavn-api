@@ -1,6 +1,6 @@
 {
   "name": "stedsnavn-api",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "log-less-fancy": "^1.4.0",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "swagger-ui-express": "^4.1.2"
   },
   "jest": {
     "collectCoverageFrom": [
