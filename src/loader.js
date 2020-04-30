@@ -17,7 +17,7 @@ const map = {
   K: 18,
   L: 17,
   M: 16,
-  N: 8
+  N: 8,
 };
 
 function priTilZoom(pri) {
@@ -30,21 +30,22 @@ function index(stederPath) {
   tree.bounds = geometry.getExtents([]);
 
   var lineReader = require("readline").createInterface({
-    input: require("fs").createReadStream(stederPath)
+    input: require("fs").createReadStream(stederPath),
   });
 
-  lineReader.on("line", function(line) {
+  lineReader.on("line", function (line) {
     const fields = line.split(" ");
-    const priority = fields[0][0];
-    const categoryId = fields[0].substring(1);
+    const ssrid = fields[0];
+    const priority = fields[1][0];
+    const categoryId = fields[1].substring(1);
     const navn = fields.slice(4).join(" ");
-    const x = parseFloat(fields[1]);
-    const y = parseFloat(fields[2]);
+    const x = parseFloat(fields[2]);
+    const y = parseFloat(fields[3]);
     const co = geometry.normalize([x, y], tree.bounds);
     if (co[0] < 0 || co[0] > 1 || co[1] < 0 || co[1] > 1) return;
 
     const z = priTilZoom(priority);
-    qt.add(tree, co[0], co[1], z, categoryId + ";" + navn);
+    qt.add(tree, co[0], co[1], z, ssrid + ";" + categoryId + ";" + navn);
   });
   return tree;
 }
@@ -53,10 +54,14 @@ function load(directory) {
   const steder_kategori = JSON.parse(
     fs.readFileSync(path.join(directory, "steder_kategori.json"))
   );
-  const meta = JSON.parse(
+  const metaArray = JSON.parse(
     fs.readFileSync(path.join(directory, "metabase.json"))
-  );
-  steder_kategori.items.forEach(sk => {
+  ).items;
+  const meta = metaArray.reduce((acc, e) => {
+    acc[e.kode] = e;
+    return acc;
+  }, {});
+  steder_kategori.items.forEach((sk) => {
     steder_kategori[sk.id] = meta[sk.kode];
   });
   const fullpath = path.join(directory, "steder.json");

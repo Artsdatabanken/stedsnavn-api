@@ -10,7 +10,7 @@
       "name": "Launch Program",
       "program": "${workspaceFolder}/stedsnavn-api.js",
       "runtimeArgs": ["--expose-gc"],
-      "args": ["--port", "9060", "data/"]
+      "args": ["--port", "8000", "data/"]
     },
     {
       "type": "node",
