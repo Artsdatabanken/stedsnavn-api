@@ -64,7 +64,7 @@ function load(directory) {
   steder_kategori.items.forEach((sk) => {
     steder_kategori[sk.id] = meta[sk.kode];
   });
-  const fullpath = path.join(directory, "steder.json");
+  const fullpath = path.join(directory, "steder.csv");
   const r = index(fullpath);
   return { index: r, id2meta: steder_kategori };
 }
