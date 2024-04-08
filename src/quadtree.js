@@ -20,7 +20,7 @@ let max = 0;
 function find2(quad, x, y, z) {
   const best = {
     distSquared: Math.pow(11115000, 2),
-    maxz: z
+    maxz: z,
   };
   find2_(quad, best, x, y, 0);
   best.dist = Math.sqrt(best.distSquared);
@@ -57,7 +57,7 @@ function addCandidate(prio, tile, x, y, dx, dy) {
     t: tile,
     x: x - dx,
     y: y - dy,
-    d: 0
+    d: 0,
   });
 }
 
@@ -118,7 +118,7 @@ function add(tree, x, y, z, value) {
   if (tree.value) {
     if (value !== tree.value) {
       //collisions++;
-      console.log(x, y, z, value);
+      //console.log(x, y, z, value);
     }
     tree.value = value;
     max = Math.max(max, tree.value.length);
