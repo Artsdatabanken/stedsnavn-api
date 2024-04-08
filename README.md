@@ -23,3 +23,6 @@ Bruker data fra [stedsnavn-lastejobb](https://github.com/Artsdatabanken/stedsnav
 | ![Dataflyt](https://github.com/Artsdatabanken/nin-arkitektur-dokumentasjon/raw/master/image/lib_24.png)  | Bibliotek                |
 | ![Dataflyt](https://github.com/Artsdatabanken/nin-arkitektur-dokumentasjon/raw/master/image/tool_24.png) | Verktøy                  |
 | ![Dataflyt](https://github.com/Artsdatabanken/nin-arkitektur-dokumentasjon/raw/master/image/www_24.png)  | Web-side/applikasjon     |
+
+Oppdatert 04.08.24
+Bygd på lokal maskin og dyttet til dockerhub - byggeløyper kommer...
