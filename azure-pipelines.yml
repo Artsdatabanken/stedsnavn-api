@@ -23,6 +23,7 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
+        containerRegistry: 'Dockerhub'
         repository: 'artsdatabanken/stedsnavn-api'
         command: 'build'
         Dockerfile: '**/Dockerfile'
@@ -30,6 +31,7 @@ stages:
     - task: Docker@2
       displayName: Publish image
       inputs:
+        containerRegistry: 'Dockerhub'
         repository: 'artsdatabanken/stedsnavn-api'
         command: 'push'
         tags: 'test'
