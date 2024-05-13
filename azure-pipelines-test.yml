@@ -35,11 +35,16 @@ stages:
               repository: "artsdatabanken/stedsnavn-api"
               command: "push"
               tags: "test"
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: 'ls -l'
           - task: CopyFiles@2
             displayName: "Copy scripts"
             inputs:
-              SourceFolder: "$(Build.SourcesDirectory)/data"
-              targetFolder: "$(Build.ArtifactStagingDirectory)"
+              SourceFolder: '$(Build.SourcesDirectory)/data/'
+              Contents: '**'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/'
 
           - publish: "$(Build.ArtifactStagingDirectory)/"
             displayName: "Publish script"
