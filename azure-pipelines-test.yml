@@ -35,13 +35,17 @@ stages:
               repository: "artsdatabanken/stedsnavn-api"
               command: "push"
               tags: "test"
-          - task: Bash@3
+          - script: 'pip install wget'
+            displayName: 'Installing wget'
+          - task: PythonScript@0
             inputs:
-              targetType: 'inline'
+              scriptSource: 'inline'
               script: |
-                ls -l
-                cd src
-                ls -l
+                import wget
+                print('Beginning file download with wget module')
+                url = 'https://github.com/artsdatabanken/stedsnavn-lastejobb/releases/latest/download/artifacts.tar'
+                path = r"$(Build.ArtifactStagingDirectory)"
+                wget.download(url, path)
           - task: CopyFiles@2
             displayName: "Copy scripts"
             inputs:
