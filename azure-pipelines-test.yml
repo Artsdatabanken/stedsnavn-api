@@ -38,7 +38,10 @@ stages:
           - task: Bash@3
             inputs:
               targetType: 'inline'
-              script: 'ls -l'
+              script: |
+                ls -l
+                cd src
+                ls -l
           - task: CopyFiles@2
             displayName: "Copy scripts"
             inputs:
