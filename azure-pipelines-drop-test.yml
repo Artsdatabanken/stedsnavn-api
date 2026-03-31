@@ -1,0 +1,36 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+  - test
+
+resources:
+  - repo: self
+
+variables:
+  tag: "$(Build.BuildId)"
+
+stages:
+  - stage: Build
+    displayName: Build image
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - script: "pip install wget"
+            displayName: "Installing wget"
+          - task: PythonScript@0
+            inputs:
+              scriptSource: "inline"
+              script: |
+                import wget
+                print('Beginning file download with wget module')
+                url = 'https://github.com/artsdatabanken/stedsnavn-lastejobb/releases/latest/download/artifacts.tar'
+                path = r"$(Build.ArtifactStagingDirectory)"
+                wget.download(url, path)
+          - publish: "$(Build.ArtifactStagingDirectory)/"
+            displayName: "Publish script"
+            artifact: drop

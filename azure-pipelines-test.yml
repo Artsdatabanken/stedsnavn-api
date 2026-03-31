@@ -35,3 +35,4 @@ stages:
               repository: "artsdatabanken/stedsnavn-api"
               command: "push"
               tags: "test"
+
